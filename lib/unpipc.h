@@ -368,13 +368,13 @@ int		 Shm_open(const char *, int, mode_t);
 void	 Shm_unlink(const char *);
 #endif
 
-#ifdef	HAVE_SYS_MSG_H
+
 			/* 4System V message queues */
 int		 Msgget(key_t key, int flag);
 void	 Msgctl(int, int, struct msqid_ds *);
 void	 Msgsnd(int, const void *, size_t, int);
 ssize_t	 Msgrcv(int, void *, size_t, int, int);
-#endif	/* HAVE_SYS_MSG_H */
+
 
 #ifdef	HAVE_SYS_SEM_H
 			/* 4System V semaphores */
