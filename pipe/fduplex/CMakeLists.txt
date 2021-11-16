@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.20)
+project(fduplex)
+include_directories(../../lib)
+set(CMAKE_CXX_STANDARD 17)
+aux_source_directory(../../lib src)
+add_executable(fduplex main.cpp ${src})
