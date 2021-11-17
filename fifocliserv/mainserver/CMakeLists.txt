@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
-project(mainpipe)
+project(mainserver)
 include_directories(../../lib)
 set(CMAKE_CXX_STANDARD 17)
-
 aux_source_directory(../../lib src)
-add_executable(mainpipe mainpipe.cpp ${src} client.cpp server.cpp)
+add_executable(mainserver main.cpp ${src} ../server.cpp)
