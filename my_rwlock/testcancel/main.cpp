@@ -14,7 +14,31 @@ void *thread1(void *arg){
     return nullptr;
 }
 
+void* thread2(void * arg){
+    printf("thread2 trying to obtain a write lock\n");
+    Pthread_rwlock_wrlock(&rwlock);
+    printf("thread2() got a write lock\n");
+    sleep(1);
+    Pthread_rwlock_unlock(&rwlock);
+    return nullptr;
+}
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    void * status;
+    Set_concurrency(2);
+    Pthread_create(&tid1, nullptr, thread1, nullptr);
+    sleep(1);
+    Pthread_create(&tid2, nullptr, thread2, nullptr);
+    Pthread_join(tid2, &status);
+    if (status != PTHREAD_CANCELED){
+        printf("thread2 status = %p\n", status);
+    }
+    Pthread_join(tid1, &status);
+    if (status != nullptr){
+        printf("thread1 status = %p\n", status);
+    }
+    printf("rw_refcount = %d, rw_nwaitreaders = %d, rw_nwaitwriters = %d\n",
+           rwlock.rw_refcount, rwlock.rw_nwaitreaders, rwlock.rw_nwaitwriters);
+    Pthread_rwlock_destroy(&rwlock);
     return 0;
 }

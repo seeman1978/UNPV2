@@ -1,7 +1,17 @@
-/* include rdlock */
-#include <thread>
 #include	"unpipc.h"
 #include	"pthread_rwlock.h"
+
+/* include rwlock_cancelrdwait */
+static void
+rwlock_cancelrdwait(void *arg)
+{
+	Pthread_rwlock_t	*rw;
+
+	rw = static_cast<Pthread_rwlock_t *>(arg);
+	rw->rw_nwaitreaders--;
+	pthread_mutex_unlock(&rw->rw_mutex);
+}
+/* end rwlock_cancelrdwait */
 
 int
 pthread_rwlock_rdlock(Pthread_rwlock_t *rw)
@@ -17,7 +27,9 @@ pthread_rwlock_rdlock(Pthread_rwlock_t *rw)
 		/* 4give preference to waiting writers */
 	while (rw->rw_refcount < 0 || rw->rw_nwaitwriters > 0) {
 		rw->rw_nwaitreaders++;
+		pthread_cleanup_push(rwlock_cancelrdwait, (void *) rw);
 		result = pthread_cond_wait(&rw->rw_condreaders, &rw->rw_mutex);
+		pthread_cleanup_pop(0);
 		rw->rw_nwaitreaders--;
 		if (result != 0)
 			break;
@@ -26,9 +38,8 @@ pthread_rwlock_rdlock(Pthread_rwlock_t *rw)
 		rw->rw_refcount++;		/* another reader has a read lock */
 
 	pthread_mutex_unlock(&rw->rw_mutex);
-	return (result);
+	return (0);
 }
-/* end rdlock */
 
 void
 Pthread_rwlock_rdlock(Pthread_rwlock_t *rw)
