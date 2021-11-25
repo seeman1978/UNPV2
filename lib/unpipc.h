@@ -166,9 +166,6 @@ typedef	void	Sigfunc(int);	/* for signal handlers */
 typedef	void	Sigfunc_rt(int, siginfo_t *, void *);
 #endif
 
-#define	min(a,b)	((a) < (b) ? (a) : (b))
-#define	max(a,b)	((a) > (b) ? (a) : (b))
-
 /*
  * In our wrappers for open(), mq_open(), and sem_open() we handle the
  * optional arguments using the va_XXX() macros.  But one of the optional
