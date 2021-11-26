@@ -161,9 +161,7 @@ union semun {				/* define union for semctl() */
 
 typedef	void	Sigfunc(int);	/* for signal handlers */
 
-#ifdef	HAVE_SIGINFO_T_STRUCT
 typedef	void	Sigfunc_rt(int, siginfo_t *, void *);
-#endif
 
 /*
  * In our wrappers for open(), mq_open(), and sem_open() we handle the
