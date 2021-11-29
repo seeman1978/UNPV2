@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.20)
+project(test3)
+include_directories(../../lib)
+set(CMAKE_CXX_STANDARD 17)
+aux_source_directory(../../lib src)
+add_executable(test3 main.cpp ${src})
