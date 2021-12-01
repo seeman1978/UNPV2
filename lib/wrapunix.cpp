@@ -389,7 +389,6 @@ again:
 }
 /* end Select */
 
-#ifdef	HAVE_SEMAPHORE_H
 
 sem_t *
 Sem_open(const char *pathname, int oflag, ...)
@@ -473,8 +472,6 @@ Sem_getvalue(sem_t *sem, int *valp)
 	if (sem_getvalue(sem, valp) == -1)
 		err_sys("sem_getvalue error");
 }
-
-#endif	/* HAVE_SEMAPHORE_H */
 
 #ifdef	HAVE_SYS_SEM_H
 int

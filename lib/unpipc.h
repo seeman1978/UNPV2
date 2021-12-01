@@ -101,6 +101,8 @@ union semun {				/* define union for semctl() */
 #endif
 
 #include	<pthread.h>
+#include <semaphore.h>
+#include <string>
 
 
 #ifdef	HAVE_DOOR_H
@@ -256,7 +258,7 @@ char	*Gf_time(void);
 void	 Lock_reg(int, int, int, off_t, int, off_t);
 pid_t	 Lock_test(int, int, off_t, int, off_t);
 void	*My_shm(size_t);
-char	*Px_ipc_name(const char *);
+std::string Px_ipc_name(const std::string& name);
 int		 Readable_timeo(int, int);
 ssize_t	 Readline(int, void *, size_t);
 ssize_t	 Readn(int, void *, size_t);
@@ -336,7 +338,7 @@ void	 Mq_getattr(mqd_t, struct mq_attr *);
 void	 Mq_setattr(mqd_t, const struct mq_attr *, struct mq_attr *);
 #endif	/* HAVE_MQUEUE_H */
 
-#ifdef	HAVE_SEMAPHORE_H
+
 			/* 4Posix semaphores */
 sem_t	*Sem_open(const char *, int, ...);
 void	 Sem_close(sem_t *);
@@ -347,7 +349,7 @@ void	 Sem_wait(sem_t *);
 int		 Sem_trywait(sem_t *);
 void	 Sem_post(sem_t *);
 void	 Sem_getvalue(sem_t *, int *);
-#endif	/* HAVE_SEMAPHORE_H */
+
 
 /* Note that <sys/mman.h> is defined on some systems that do not support
  * Posix shared memory (e.g., 4.4BSD), because this header predates Posix
