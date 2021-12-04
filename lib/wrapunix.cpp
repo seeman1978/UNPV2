@@ -21,6 +21,8 @@
 #include	<stdarg.h>		/* for variable arg lists */
 #include <sys/ioctl.h>
 #include <sys/ipc.h>
+#include <sys/mman.h>
+
 void *
 Calloc(size_t n, size_t size)
 {
@@ -185,7 +187,7 @@ Mktemp(char *temp)
 		err_quit("mktemp error");
 }
 
-#ifdef	HAVE_SYS_MMAN_H
+
 
 void *
 Mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset)
@@ -203,7 +205,7 @@ Munmap(void *addr, size_t len)
 	if (munmap(addr, len) == -1)
 		err_sys("munmap error");
 }
-#endif	/* HAVE_SYS_MMAN_H */
+
 
 #ifdef	HAVE_MQUEUE_H
 
