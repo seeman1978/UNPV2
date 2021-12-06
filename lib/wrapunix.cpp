@@ -516,7 +516,7 @@ Semctl(int id, int semnum, int cmd, ...)
 
 #endif	/* HAVE_SYS_SEM_H */
 
-#ifdef	HAVE_SHM_OPEN_PROTO
+
 
 int
 Shm_open(const char *pathname, int oflag, mode_t mode)
@@ -536,7 +536,6 @@ Shm_unlink(const char *pathname)
 		err_sys("shm_unlink error");
 }
 
-#endif	/* HAVE_SHM_OPEN_PROTO */
 
 #ifdef	HAVE_SYS_SHM_H
 

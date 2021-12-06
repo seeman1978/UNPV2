@@ -358,11 +358,10 @@ void	 Sem_getvalue(sem_t *, int *);
  * memory or not.  We use our own HAVE_SHM_OPEN_PROTO symbol.
  */
 
-#ifdef	HAVE_SHM_OPEN_PROTO
+
 			/* 4Posix shared memory */
 int		 Shm_open(const char *, int, mode_t);
 void	 Shm_unlink(const char *);
-#endif
 
 
 			/* 4System V message queues */
